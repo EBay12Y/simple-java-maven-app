@@ -1,19 +1,28 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:16-buster-slim' 
-            args '-p 3000:3000' 
-        }
-    }
+    agent any
+    
     stages {
-        stage('Build') { 
+        stage('Checkout') {
             steps {
-                sh 'npm install' 
+                checkout scm
             }
         }
-        stage('Test') { 
+        
+        stage('Build') {
             steps {
-                sh './jenkins/scripts/test.sh' 
+                sh 'mvn clean package'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                sh 'mvn deploy'
             }
         }
     }
