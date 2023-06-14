@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3-alpine'
+            image 'maven:3.9.0-eclipse-temurin-11'
             args '-v /root/.m2:/root/.m2'
         }
     }
@@ -16,17 +16,17 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn test -Dmaven.test.failure.ignore=true'
+                sh 'mvn test'
             }
             post {
-                success {
+                always {
                     junit 'target/surefire-reports/*.xml'
                 }
             }
         }
-        stage('Deliver') {
+        stage('Deliver') { 
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                sh './jenkins/scripts/deliver.sh' 
             }
         }
     }
