@@ -36,7 +36,7 @@ pipeline {
                 }
             }
             steps {
-                sh './jenkins/scripts/deploy.sh' 
+                sh './jenkins/scripts/deliver.sh' 
                 sleep 60 // Menjeda eksekusi selama 1 menit (60 detik)
                 sh './jenkins/scripts/kill.sh' 
             }
