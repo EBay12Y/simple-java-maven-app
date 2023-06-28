@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PID=$(pgrep -f "nama-aplikasi.jar")
+PID=$(pgrep -f "java-maven-app.jar")
 
 if [ -n "$PID" ]; then
   echo "Menghentikan aplikasi dengan PID: $PID"
