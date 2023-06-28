@@ -1,11 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-PID=$(pgrep -f "java-maven-app.jar")
+echo 'Stopping the running Java application...'
+echo 'Searching for the Java process ID...'
+set -x
+PID=$(pgrep -f "${NAME}-${VERSION}.jar")
+set +x
 
-if [ -n "$PID" ]; then
-  echo "Menghentikan aplikasi dengan PID: $PID"
-  
-  kill "$PID"
-else
-  echo "Tidak ada aplikasi yang berjalan"
-fi
+echo 'Killing the Java process...'
+set -x
+kill "$PID"
+set +x
+
+echo 'Java application has been stopped.'
