@@ -26,18 +26,18 @@ pipeline {
         }
         stage('Manual Approval') {
             steps {
-                input message: 'Lanjutkan ke tahap Deliver?', ok: 'Proceed', submitter: 'user'
+                input message: 'Lanjutkan ke tahap Deploy?', ok: 'Proceed', submitter: 'user'
             }
         }
-        stage('Deliver') { 
+        stage('Deploy') { 
             when {
                 expression {
                     return currentBuild.result != 'ABORTED'
                 }
             }
             steps {
-                sh './jenkins/scripts/deliver.sh' 
-                sleep 60
+                sh './jenkins/scripts/deploy.sh' 
+                sleep 60 // Menjeda eksekusi selama 1 menit (60 detik)
                 sh './jenkins/scripts/kill.sh' 
             }
         }
